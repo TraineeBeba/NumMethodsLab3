@@ -21,6 +21,4 @@ public class Main {
 
         System.out.printf("Min eigenvalue = %.3f", answer);
     }
-
-
 }

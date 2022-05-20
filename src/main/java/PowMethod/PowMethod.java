@@ -54,15 +54,16 @@ public class PowMethod {
         }
         double[] Xn1;
 
-        double lambda = 0;
+        double lambda = 20;
         double lambda_prev;
 
         do {
             Xn1 = MtrUtil.multiply(B, Xn);
+            someMagicWithZeroCheck(EPS, Xn1);
 
             lambda_prev = lambda;
 
-            lambda = Xn1[0] / Xn[0];
+            lambda = Xn1[2] / Xn[2];
 
             double norm = normalize(Xn1);
 
@@ -72,9 +73,16 @@ public class PowMethod {
 
             Xn = Xn1;
 
-        } while ((Math.abs(lambda - lambda_prev)) >= EPS);
-
+        } while ((Math.abs(lambda - lambda_prev)) > EPS);
         return lambda;
+    }
+
+    private static void someMagicWithZeroCheck(double EPS, double[] Xn1) {
+        for (int i = 0; i < Xn1.length; i++) {
+            if(Xn1[i] < EPS && Xn1[i] > -EPS) {
+                Xn1[i] = 0.0;
+            }
+        }
     }
 
     static double getMinEigenValue(final double[][] A, final double EPS) {
