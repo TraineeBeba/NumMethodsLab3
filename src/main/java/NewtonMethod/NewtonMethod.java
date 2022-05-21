@@ -53,6 +53,8 @@ public class NewtonMethod {
         double[] B = new double[A.length];
         double z;
 
+        int iterCount = 0;
+
         do
         {
             A[0][0] = Derivative_F1_X(x, y);
@@ -73,6 +75,12 @@ public class NewtonMethod {
             B[1] = F2(x, y);
 
             z = sqrt(B[0] * B[0] + B[1] * B[1]);
+
+            System.out.printf("A matrix on iter %d is: \n", iterCount);
+            Printer.printMatrix(A);
+            System.out.printf("z: %.5f\n", z);
+            System.out.println("______________________________");
+            iterCount++;
 
         } while (z >= epsilon);
 

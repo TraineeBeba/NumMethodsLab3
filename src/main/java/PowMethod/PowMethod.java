@@ -57,6 +57,8 @@ public class PowMethod {
         double lambda = 20;
         double lambda_prev;
 
+        int iterCount = 0;
+
         do {
             Xn1 = MtrUtil.multiply(B, Xn);
             someMagicWithZeroCheck(EPS, Xn1);
@@ -73,6 +75,9 @@ public class PowMethod {
 
             Xn = Xn1;
 
+            System.out.printf("Iter: %d    lambda: %.5f\n", iterCount, lambda);
+            iterCount++;
+
         } while ((Math.abs(lambda - lambda_prev)) > EPS);
         return lambda;
     }
@@ -88,6 +93,8 @@ public class PowMethod {
     static double getMinEigenValue(final double[][] A, final double EPS) {
         find_A_between_two_double_lines(A);
         double[][] B = find_B(A);
-        return A_between_two_double_lines - findMaxEigenValueForB(B, EPS);
+        double maxEigenValueForB = findMaxEigenValueForB(B, EPS);
+        System.out.printf("||A|| - lambda max (B) = %.3f - %.3f\n", A_between_two_double_lines, maxEigenValueForB);
+        return A_between_two_double_lines - maxEigenValueForB;
     }
 }
